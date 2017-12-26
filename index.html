@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>D3 Time Related</title>
+<style type="text/css">
+
+.chart div {background-color: #4682b4;font-size: 14px;margin: 5px 0;padding: 4px;}	
+.chart {width: 350px;border: 1px solid #999;}
+
+</style>
+</head>
+<body>
+
+<div class="dasboard">
+	<h4>Start D3 Chart</h4>
+	<div class="chart"></div>
+</div>
+
+<script type="text/javascript" src="d3.min.js"></script>
+<script type="text/javascript">
+	
+
+// d3.select("body").style("background-color", "#ddd");
+
+// d3.select("body")
+// 	.selectAll("p")
+// 	.data([5, 9, 15, 27, 35, 47])
+// 	.enter().append("p")
+// 	.text(function(d) {return "I can called this number " + d + "!"}) ;
+
+
+var data = [230, 366, 487, 297, 740, 883];
+
+var scale = d3.scale.linear()
+	.domain([0, 883])
+	.range([0, 330])
+
+
+d3.select(".chart")
+	.selectAll("div")
+	.data(data)
+		.enter()
+		.append("div")
+		.style("width", function(d)  {return scale(d) + "px"})
+		.text(function(d) 
+			{	
+				return d ; 
+			}).style("text-align", "right").style("color", "#fff");
+
+</script>
+</body>
+</html>
