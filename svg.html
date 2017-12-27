@@ -18,38 +18,94 @@
 </head>
 <body>
 
-<svg class="chart" width="420" height="120">
+<!-- <svg class="chart" width="420" height="180">
+
+
   <g transform="translate(0,0)">
     <rect width="40" height="19"></rect>
     <text x="37" y="9.5" dy=".4em">4</text>
   </g>
-  <g transform="translate(0,20)">
+  <g transform="translate(0,30)">
     <rect width="80" height="19"></rect>
     <text x="75" y="9.5" dy=".35em">8</text>
   </g>
-  <g transform="translate(0,40)">
+  <g transform="translate(0,60)">
     <rect width="150" height="19"></rect>
     <text x="140" y="9.5" dy=".35em">15</text>
   </g>
-  <g transform="translate(0,60)">
+  <g transform="translate(0,90)">
     <rect width="160" height="19"></rect>
     <text x="150" y="9.5" dy=".35em">16</text>
   </g>
-  <g transform="translate(0,80)">
+  <g transform="translate(0,120)">
     <rect width="230" height="19"></rect>
     <text x="220" y="9.5" dy=".35em">23</text>
   </g>
-  <g transform="translate(0,100)">
+  <g transform="translate(0,150)">
     <rect width="420" height="19"></rect>
     <text x="410" y="9.5" dy=".35em">42</text>
   </g>
-</svg>
+
+</svg> -->
+
+<h3>Dynamic Chart</h3>
+<svg class="chart"></svg>
+
+
 
 
 <script type="text/javascript" src="d3.min.js"></script>
 
 <script type="text/javascript">
-	
+
+var data = [35, 68, 87, 50, 200];
+
+var svgContainer = 	d3.select("body").append("svg")
+					.attr("width", 420);
+
+var width = 420,
+	height = 250,
+	barHeight = 30;
+
+var x = d3.scale.linear()
+	.domain([0, d3.max(data)])
+	.range([0, width]);
+
+var yAxis = d3.svg.axis()
+	.ticks(5)
+	.scale(x);
+
+
+var chart = d3.select(".chart")
+	.attr("width", "width")
+	.attr("height", barHeight * data.length);
+
+var bar = chart.selectAll("g")
+	.data(data)
+	.enter().append("g")
+	.attr("transform", function(d, i)
+	{
+		return "translate(0, " + i * barHeight + ")";
+	})
+
+
+bar.append("rect")
+    .attr("width", x)
+    .attr("height", barHeight - 5);
+
+bar.append("text")
+    .attr("x", function(d) { return x(d) - 10; })
+    .attr("y", barHeight / 2)
+    .attr("dy", ".1em")
+    .text(function(d) 
+    	{ 
+    		return d; 
+    	});
+
+
+var xAxisGroup = svgContainer.append("g")
+                 .call(yAxis);
+
 </script>
 
 </body>
